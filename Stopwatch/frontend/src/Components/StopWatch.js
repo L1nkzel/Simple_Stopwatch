@@ -1,4 +1,6 @@
 import { Box } from "@mui/material";
+
+
 import { useEffect, useState } from "react";
 import ActionButtons from "./ActionButtons";
 import Timer from "./Timer";
@@ -7,6 +9,8 @@ const StopWatch = () => {
   const [start, setStart] = useState(false);
   const [stop, setStop] = useState(true);
   const [time, setTime] = useState(0);
+
+  const [savedTime, setSavedTime] = useState([]);
 
   useEffect(() => {
     let interval = null;
@@ -27,21 +31,58 @@ const StopWatch = () => {
     setStart(true);
     setStop(false);
   };
-
+  
   const handlePauseResume = () => {
+     
     setStop(!stop);
+    console.log(time);
+    
   };
 
   const handleReset = () => {
     setStart(false);
     setTime(0);
-  };
-
-  const handleSave = async() => {
-    const data = await fetch("http://localhost:3001/api")
-
-
   }
+
+useEffect(() => {
+
+  const fetchData = async () => {
+    
+    const result = await fetch("http://localhost:3001/time/")
+    const jsonResult = await result.json();
+    
+    setSavedTime(jsonResult)
+   
+  }
+  fetchData()
+  
+}, [])
+
+  
+  
+  const handleSave = async() =>{
+    const data = 
+    {
+      time: time.toString()
+    }
+   
+    
+ 
+  
+    
+    
+    const result = await fetch('http://localhost:3001/time/', {
+      method:"POST",
+      headers: {
+        'Content-Type': 'application/json' 
+      },
+      body: JSON.stringify(data)
+      
+  })
+    const resultJson = await result.json();
+    setSavedTime(prev => [...prev, resultJson])
+    
+}
 
   return (
     <Box
@@ -63,7 +104,16 @@ const StopWatch = () => {
           handleStart={handleStart}
           handlePauseResume={handlePauseResume}
           handleReset={handleReset}
+          handleSave={handleSave}
+         
         />
+      </Box>
+      <Box>
+        {savedTime.map(time => <Box key={time.id}>
+          <Box>
+            {time.time}
+          </Box>
+        </Box>)}
       </Box>
     </Box>
   );

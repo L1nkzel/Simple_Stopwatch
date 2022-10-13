@@ -9,18 +9,14 @@ const ActionButtons = (props) => {
       marginTop={2}
       
       direction={"row"} spacing={2}>
-      <Button variant="contained" id="startTimer" onClick={props.handleStart}>
-        START
+      <Button sx={{
+        bgcolor:"rgba(19, 160, 7, 1)",
+        ":hover":{bgcolor:"rgb(19, 120, 7, 1)"}
+        }}  variant="contained" id="startTimer" onClick={props.handleStart}>
+        {props.stop ? "START" : "STOP"}
       </Button>
-      <Button
-        variant="contained"
-        id="ResetTimer"
-        onClick={props.handlePauseResume}
-      >
-        {props.stop ? "RESUME" : "PAUSE"}
 
-      </Button>
-      <Button variant="contained" id="stopTimer" onClick={props.handleReset}>
+      <Button  variant="contained" id="stopTimer" onClick={props.handleReset}>
         RESET
       </Button>
       </Stack>

@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Card} from "@mui/material";
 import { useEffect, useState } from "react";
 import ActionButtons from "./ActionButtons";
 import Timer from "./Timer";
@@ -25,7 +25,7 @@ const StopWatch = () => {
 
   const handleStart = () => {
     setStart(true);
-    setStop(false);
+    setStop(!stop);
   };
 
   const handlePauseResume = () => {
@@ -44,17 +44,36 @@ const StopWatch = () => {
   }
 
   return (
-    <Box
-      sx={{
+
+        <Card 
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    boxShadow: 10,
+                    flexWrap: "wrap",
+                    maxWidth: 500,
+                    padding: 2,
+                    margin:"auto",
+                    backgroundColor: "rgba(209, 220, 205, 0.81)",
+                    borderRadius: 8,
+                    mt:10
+                  
+                  }}>
+      <Card sx={{
         display: "flex",
-        flexDirection: "column",
-        flexGrow: 1,
-        alignItems: "center",
-      }}
-    >
-      <Box sx={{}}>
+        fontSize:36, 
+        fontWeight:"bold",
+        justifyContent: "center",
+        bgColor: "rgba(232, 243, 226, 0)",
+        borderRadius: 4,
+        padding: 1,
+        width: 300
+
+
+    }}>
         <Timer time={time} />
-      </Box>
+      </Card>
       
       <Box sx={{}}>
         <ActionButtons
@@ -65,7 +84,7 @@ const StopWatch = () => {
           handleReset={handleReset}
         />
       </Box>
-    </Box>
+      </Card>
   );
 };
 

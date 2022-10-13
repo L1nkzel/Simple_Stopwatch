@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 const Timer = (props) => {
   return (
-    <Box>
+    <Box >
       <Box component={"span"}>
         {("0" + Math.floor((props.time / 60000) % 60)).slice(-2)}:
       </Box>

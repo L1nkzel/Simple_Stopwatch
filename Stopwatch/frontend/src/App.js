@@ -1,11 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
+import { Box } from "@mui/material";
+import StopWatch from "./Components/StopWatch";
 
 function App() {
   return (
-    <div className="App">
-
-    </div>
+  <Box>
+    <StopWatch/>
+  </Box>
   );
 }
 

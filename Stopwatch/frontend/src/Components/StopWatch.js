@@ -37,6 +37,12 @@ const StopWatch = () => {
     setTime(0);
   };
 
+  const handleSave = async() => {
+    const data = await fetch("http://localhost:3001/api")
+
+
+  }
+
   return (
     <Box
       sx={{

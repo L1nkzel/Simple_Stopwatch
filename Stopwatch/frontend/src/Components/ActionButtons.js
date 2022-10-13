@@ -5,7 +5,10 @@ import React from "react";
 const ActionButtons = (props) => {
   return (
     <Box>
-      <Stack direction={"row"} spacing={2}>
+      <Stack
+      marginTop={2}
+      
+      direction={"row"} spacing={2}>
       <Button variant="contained" id="startTimer" onClick={props.handleStart}>
         START
       </Button>
@@ -20,6 +23,21 @@ const ActionButtons = (props) => {
       <Button variant="contained" id="stopTimer" onClick={props.handleReset}>
         RESET
       </Button>
+      </Stack>
+      <Stack sx={{
+        margin: "20px",
+        flexGrow:1,
+        display:"flex",
+        alignItems:"center"        
+      }}>
+      <Button 
+      variant="contained" 
+      id="save" 
+      sx={{
+        width:"90px"
+      }} 
+      onClick={props.handleSave}>SAVE</Button>
+
       </Stack>
     </Box>
   );

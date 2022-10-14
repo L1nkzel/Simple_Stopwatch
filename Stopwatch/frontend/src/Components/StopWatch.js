@@ -8,6 +8,7 @@ const StopWatch = () => {
   const [stop, setStop] = useState(true);
   const [time, setTime] = useState(0);
 
+
   useEffect(() => {
     let interval = null;
 

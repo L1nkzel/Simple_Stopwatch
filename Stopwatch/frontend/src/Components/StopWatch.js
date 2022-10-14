@@ -7,6 +7,7 @@ const StopWatch = () => {
   const [start, setStart] = useState(false);
   const [stop, setStop] = useState(true);
   const [time, setTime] = useState(0);
+  const [flag, setFlag] = useState(true)
 
   useEffect(() => {
     let interval = null;
@@ -25,11 +26,12 @@ const StopWatch = () => {
 
   const handleStart = () => {
     setStart(true);
-    setStop(!stop);
+    setStop(false);
   };
 
   const handlePauseResume = () => {
     setStop(!stop);
+    setFlag(!flag)
   };
 
   const handleReset = () => {

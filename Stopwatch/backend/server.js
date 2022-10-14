@@ -2,10 +2,18 @@ import express from "express";
 import timeRoute from "./routes/timeRoute.js"
 
 
+
+
+import timeRoute from "./routes/timeRoute.js"
+
+
+
+
 const server = express();
 const PORT = 3001;
 
 server.use(express.json())
+
 server.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.header(
@@ -16,6 +24,10 @@ server.use((req, res, next) => {
 });
 
 server.use("/time", timeRoute)
+
+
+
+
 
 
 

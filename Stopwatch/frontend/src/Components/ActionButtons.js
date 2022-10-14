@@ -46,7 +46,7 @@ const ActionButtons = (props) => {
 
       <Box
         sx={{
-          margin: "15px",
+          mt:1,
           flexGrow: 1,
           display: "flex",
           alignItems: "center",
@@ -57,7 +57,7 @@ const ActionButtons = (props) => {
           variant="contained"
           id="save"
           sx={{
-            width: "90px",
+            width: "175px",
           }}
           onClick={props.handleSave}
         >

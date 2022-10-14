@@ -9,6 +9,7 @@ const StopWatch = () => {
   const [start, setStart] = useState(false);
   const [stop, setStop] = useState(true);
   const [time, setTime] = useState(0);
+  const [savedTime, setSavedTime] = useState([]);
 
 
   useEffect(() => {
@@ -43,47 +44,76 @@ const StopWatch = () => {
     setTime(0);
   }
 
-useEffect(() => {
-
-  const fetchData = async () => {
-    
-    const result = await fetch("http://localhost:3001/time/")
-    const jsonResult = await result.json();
-    
-    setSavedTime(jsonResult)
-   
-  }
-  fetchData()
-  
-}, [])
-
-  
-  
-  const handleSave = async() =>{
-    const data = 
-    {
-      time: time.toString()
-    }
-   
-    
+  const convertTime = (stopTime) =>{
+    let miliSeconds = (stopTime /10).toString();
+    let minutes = ((stopTime / 1000) / 60).toString();
+    let seconds = ((stopTime / 1000) % 60).toString();
  
+    if(stopTime < 1000){
+     return "00:00." + miliSeconds
+ 
+   }else if(miliSeconds.length ===3) {
+     return "00:0" + seconds.substring(0,1)+ "." +miliSeconds.substring(1,3)
+   }else if(miliSeconds.length ===4 && parseInt(miliSeconds) < 6000) {
+    
+    return "00:" + miliSeconds.substring(0,2)+ "." +miliSeconds.substring(2,4)
+     
+ }else if((miliSeconds.length ===5 && parseInt(miliSeconds) < 60000) || miliSeconds >6000 ) {
+   if(seconds.indexOf(".") === 1)
+   {
+     return "0" + minutes.substring(0,1)+ ":0" +seconds.substring(0,1) + "." + seconds.substring(3,5)  
+   }else  {
+     return "0" + minutes.substring(0,1)+ ":" +seconds.substring(0,2) + "." + seconds.substring(3,5)
+ }
+ 
+   }else{
+     if(seconds.indexOf(".") === 1)
+   {
+     return minutes.substring(0,2)+ ":0" +seconds.substring(0,1) + "." + seconds.substring(3,5)
   
+   }else  {
+     return  minutes.substring(0,1)+ ":" +seconds.substring(0,2) + "." + seconds.substring(3,5)
+  
+ }
+   }
+ }
+   
+ 
+ useEffect(() => {
+ 
+   const fetchData = async () => {
+     
+     const result = await fetch("http://localhost:3001/time/")
+     const jsonResult = await result.json();
+     
+     setSavedTime(jsonResult)
     
-    
-    const result = await fetch('http://localhost:3001/time/', {
-      method:"POST",
-      headers: {
-        'Content-Type': 'application/json' 
-      },
-      body: JSON.stringify(data)
-      
-  })
-    const resultJson = await result.json();
-    setSavedTime(prev => [...prev, resultJson])
-    
-}
-
-
+   }
+   fetchData()
+   
+ }, [])
+ 
+   
+   
+   const handleSave = async() =>{
+     const data = 
+     {
+       time: time
+     }
+ 
+ 
+     const result = await fetch('http://localhost:3001/time/', {
+       method:"POST",
+       headers: {
+         'Content-Type': 'application/json' 
+       },
+       body: JSON.stringify(data)
+       
+   })
+     const resultJson = await result.json();
+     setSavedTime(prev => [...prev, resultJson])
+     
+ }
 
   return (
 
@@ -132,7 +162,7 @@ useEffect(() => {
       <Box>
         {savedTime.map(time => <Box key={time.id}>
           <Box>
-            {time.time}
+            {convertTime(time.time)}
           </Box>
         </Box>)}
       </Box>

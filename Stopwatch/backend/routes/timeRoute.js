@@ -13,7 +13,7 @@ route.get("/", async (req, res) => {
 route.post("/",  async (req,res) =>{
   const time = await prisma.stoptime.create({
     data: {
-      time: req.body.time
+      time: parseInt(req.body.time)
     }
   })
   res.json(time)

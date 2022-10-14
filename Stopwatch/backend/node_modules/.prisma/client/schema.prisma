@@ -12,5 +12,5 @@ datasource db {
 
 model stoptime {
   id   Int    @id @default(autoincrement())
-  time String
+  time Int
 }

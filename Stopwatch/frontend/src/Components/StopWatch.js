@@ -26,7 +26,7 @@ const StopWatch = () => {
 
   const handleStart = () => {
     setStart(true);
-    setStop(!stop);
+    setStop(false);
   };
 
   const handlePauseResume = () => {

@@ -1,8 +1,9 @@
-import { Box, Card, Divider } from "@mui/material";
+import { Box, Button, Card, Divider } from "@mui/material";
 
 import { useEffect, useState } from "react";
 import ActionButtons from "./ActionButtons";
 import Timer from "./Timer";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const StopWatch = () => {
   const [start, setStart] = useState(false);
@@ -114,6 +115,7 @@ const StopWatch = () => {
       time: time,
     };
 
+    if(data.time !== 0) {
     const result = await fetch("http://localhost:3001/time/", {
       method: "POST",
       headers: {
@@ -123,7 +125,24 @@ const StopWatch = () => {
     });
     const resultJson = await result.json();
     setSavedTime((prev) => [...prev, resultJson]);
+  } else {
+    alert("Du kan inte spara innan du startat")
+  }
   };
+
+ 
+ const handleDelete = async (id) => {
+
+ await fetch(`http://localhost:3001/time/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  setSavedTime(savedTime.filter(time => time.id !== id))
+};
+ 
+
 
   return (
    <Box sx={{
@@ -183,9 +202,12 @@ const StopWatch = () => {
       
         
         {savedTime.map((time) => (
-          <Box key={time.id}>
+          <Box key={time.id} >
             <Divider width={400}   />
             <Box>{convertTime(time.time)}
+            <Button onClick={ () => handleDelete(time.id)}>
+            <DeleteIcon />
+            </Button>
             </Box>
            
             <Box/>

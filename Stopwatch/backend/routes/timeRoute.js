@@ -19,4 +19,14 @@ route.post("/",  async (req,res) =>{
   res.json(time)
 })
 
+route.delete("/:id", async (req,res) => {
+  const time = await prisma.stoptime.delete({
+    where: {
+      id: parseInt(req.params.id)
+    }
+  })
+
+  res.sendStatus(204)
+})
+
 export default route;
